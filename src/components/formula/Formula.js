@@ -1,12 +1,14 @@
 import {ExcelComponent} from '@core/ExcelComponent'
+import {$} from '@core/dom'
 
 export class Formula extends ExcelComponent {
   static className = 'excel__formula'
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'formula',
-      listeners: ['input', 'click']
+      listeners: ['input', 'keydown'],
+      ...options
     });
   }
 
@@ -15,18 +17,34 @@ export class Formula extends ExcelComponent {
     <div class="info">
     fx
 </div>
-<div class="input" contenteditable spellcheck="false">
+<div class="input" id="formula" contenteditable spellcheck="false">
     
 </div>
     `
   }
 
-  onInput(event) {
-    console.log(this.$root)
-    console.log('Formula oninput', event.target.textContent)
+  init() {
+    super.init();
+
+    this.$formula = this.$root.find('#formula');
+
+    this.$on('table:select', $cell => {
+      this.$formula.text($cell.text())
+    })
+
+    this.$on('table:input', $cell => {
+      this.$formula.text($cell.text())
+    })
   }
 
-  onClick() {
-    console.log('click')
+  onInput(event) {
+    this.$emit('formula:input', $(event.target).text());
+  }
+
+  onKeydown(event) {
+    if(event.key === 'Enter') {
+      event.preventDefault()
+      this.$emit('formula:done');
+    }
   }
 }
