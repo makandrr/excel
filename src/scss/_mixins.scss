@@ -14,10 +14,12 @@
 
     &:active, &.active {
         color: $color;
+        border-bottom: 3px solid $color;
+        background-color: #f5f5f5;
     }
 
     &:hover {
-        background: #eee;
+        background-color: #eee;
         cursor: pointer;
     }
 }
