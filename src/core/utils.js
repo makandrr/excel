@@ -67,5 +67,12 @@ export function debounce(fn, wait) {
   }
 }
 
+export function clone(obj) {
+  return JSON.parse(JSON.stringify(obj))
+}
+
+export function preventDefault(event) {
+  event.preventDefault()
+}
 
 // {"rowState":{"3":92},"colState":{"1":235,"2":132,"3":181},"dataState":{"4:5":"gfdfg","7:4":"fdfg","6:6":"fdsdfdsfd","0:0":"FIRST","2:1":"GFDSGDFJHGHGHJdfgdf","5:4":"ds","5:7":"gdfgdf","4:10":"gdfgdfgdf","11:11":"gfdgfd","6:13":"gdfgfdgdf","3:13":"gdfgd","9:3":"fdskjhj","0:1":"gfdgdf","2:2":"gdfgd","3:2":"FDSDFFDHG","4:1":"","3:1":"","1:1":"GDFGD"},"currentText":"GDFGD"}
